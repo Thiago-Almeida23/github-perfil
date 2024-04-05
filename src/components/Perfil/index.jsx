@@ -1,40 +1,43 @@
-import styles from './Perfil.module.css'
+import { useState, useEffect } from "react";
+import styles from './Perfil.module.css';
 
 const Perfil = ({ nomeUsuario }) => {
+    const [usuario, setUsuario] = useState(null);
+    const [erro, setErro] = useState(null);
+
+    useEffect(() => {
+        if (nomeUsuario.trim() !== '') {
+            fetch(`https://api.github.com/users/${nomeUsuario}`)
+                .then(res => {
+                    if (res.ok) {
+                        return res.json();
+                    } else {
+                        throw new Error('Usuário não encontrado.');
+                    }
+                })
+                .then(resJson => {
+                    setUsuario(resJson);
+                })
+                .catch(error => {
+                    setErro(error.message);
+                });
+        }
+    }, [nomeUsuario]);
+
+    if (erro) {
+        return null; // Se ocorrer um erro, não renderiza nada
+    }
+
     return (
-        <header className={styles.header}>
-            <img className={styles.avatar} src={`https://github.com/${nomeUsuario}.png`} />
-            <h1 className={styles.name}>
-                {nomeUsuario}
-            </h1>
-        </header>
-    )
-}
+        <div className={styles.header}>
+            {usuario && (
+                <>
+                    <img className={styles.avatar} src={usuario.avatar_url} alt="Avatar do usuário" />
+                    <h2 className={styles.name}>{usuario.name}</h2>
+                </>
+            )}
+        </div>
+    );
+};
 
-export default Perfil
-
-// export default function() {
-//      const usuario = {
-//         nome: 'Thiago Almeida',
-//         avatar: 'https://github.com/Thiago-Almeida23.png'
-//     }
-//         return (
-//         <div>
-//             <img className='perfil-avatar' src={usuario.avatar} />
-//             <h3 className='perfil-titulo'>{usuario.nome}</h3>
-//         </div>
-//     )   
-// }
-
-// export default () => {
-//     const usuario = {
-//         nome: 'Thiago Almeida',
-//         avatar: 'https://github.com/Thiago-Almeida23.png'
-//     }
-//         return (
-//         <div>
-//             <img className='perfil-avatar' src={usuario.avatar} />
-//             <h3 className='perfil-titulo'>{usuario.nome}</h3>
-//         </div>
-//     )
-// }
+export default Perfil;

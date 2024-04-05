@@ -2,6 +2,7 @@
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
     gap: 16px;
+    margin-bottom: 40px;
 }
 
 .listItem {
@@ -16,8 +17,8 @@
 
 .itemLink {
     display: block;
-    background-color: var(--corPrincipal);
-    color: var(--corSecundaria);
+    background-color: #262523;
+    color: #F2F2F2;
     text-align: center;
     font-weight: bold;
     margin-top: 8px;

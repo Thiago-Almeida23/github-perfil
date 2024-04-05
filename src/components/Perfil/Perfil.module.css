@@ -1,20 +1,19 @@
 .header {
-    background-color: var(--corPrincipal);
+    background-color: #F2F2F2;
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding: 180px 0 40px;
-    margin-bottom: 80px;
+    padding: 80px 0 40px;
 }
 
 .avatar {
     width: 160px;
     height: 160px;
     border-radius: 50%;
-    border: 2px solid var(--corSecundaria);
+    border: 2px solid #262523;
 }
 
 .name {
     font-size: 18px;
-    color: var(--corSecundaria);
+    color: #262523;
 }
